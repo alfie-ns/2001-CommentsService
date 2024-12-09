@@ -17,7 +17,7 @@
 ## CommentsService Report
 
 - [ ] Ensure to use the set exercises design-template for the report's git repo
-- [ ] Initialise git repository
+- [X] Initialise git repository
 - [ ] Use Django API for CommentsService
 - [ ] Repeat SQL implementation from CW1 -> CW2
 - [ ] Implement authentication and authorisation with the API once it's online

@@ -10,5 +10,6 @@ On the starting commits, I ran the following commands to set up the Django proje
 3. run `pip3 install django djangorestframework` to install both of those packages
 4. run `pip3 freeze > requirements.txt` to store the dependencies, to reinstall to the venv on new clones by running `pip3 install -r requirements.txt`
 5. run `django-admin startproject CommentsService` to create the Django project
+6. run `cd CommentsService` then `python3 manage.py migrate` to migrate the database
 
 `...`
