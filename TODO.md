@@ -45,4 +45,5 @@
   > Best,
   > Haoyi
   >
-- [ ] Make README.md
+- [ ] Make README.md & Talk about pushing .env to codebase and why you shouldn't do this
+- [ ] add Haoyi to git

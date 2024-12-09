@@ -1,4 +1,8 @@
 asgiref==3.9.1
-Django==5.2.4
+Django==5.0.14
 djangorestframework==3.16.0
+mssql-django==1.5
+pyodbc==5.2.0
+python-dotenv==1.1.1
+pytz==2025.2
 sqlparse==0.5.3
