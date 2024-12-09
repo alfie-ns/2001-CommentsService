@@ -4,11 +4,11 @@ CommentsService is a project I made for **COMP2001** at the University of Plymou
 
 ## Setup
 
-On a starting commit, I run the following commands to set up a virtual environment and install some necessary packages:
-
+On the starting commits, I ran the following commands to set up the Django project:
 1. run `python3 -m venv venv` to create virtual environment
 2. run `source venv/bin/activate` (or whatever you named the virtual environment) to enter it
 3. run `pip3 install django djangorestframework` to install both of those packages
 4. run `pip3 freeze > requirements.txt` to store the dependencies, to reinstall to the venv on new clones by running `pip3 install -r requirements.txt`
+5. run `django-admin startproject CommentsService` to create the Django project
 
 `...`
