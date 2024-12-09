@@ -1,5 +1,8 @@
 # COMP2001: CommentsService
 
+[Address Initial Feedback](/README.md)
+
+
 CommentsService is a project I made for **COMP2001** at the University of Plymouth. It is a Django RESTful API that allows users to create, read and update comments on trails. It also includes authentication and authorisation features, as well as a web interface for testing the API.
 
 In Django, an `app` refers to a folder (i.e. feature) inside the project
