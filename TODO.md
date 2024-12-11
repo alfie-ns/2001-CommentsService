@@ -18,8 +18,10 @@
 
 - [ ] Ensure to use the set exercises design-template for the report's git repo
 - [X] Initialise git repository
-- [ ] Use Django API for CommentsService
+- [X] Use Django API for CommentsService
+- [ ] Create API requests to make it work, remember to serialise API data
 - [ ] Repeat SQL implementation from CW1 -> CW2
+- [ ] Make a template for hands-on testing
 - [ ] Implement authentication and authorisation with the API once it's online
 - [ ] Create UML diagrams
 - [ ] Test and document results
