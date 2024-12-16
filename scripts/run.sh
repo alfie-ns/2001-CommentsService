@@ -4,7 +4,7 @@ cd CommentsService
 if python3 manage.py makemigrations && python3 manage.py migrate; then
     echo "Migrated successfully..."
     if python3 manage.py runserver; then
-        echo "CommentsService is running."
+        echo "Server shutting down..."
     else
         echo "Failed to start CommentsService." >&2
         exit 1

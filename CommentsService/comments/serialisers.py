@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Comment, User
+from .models import Comment, User, Reply
 
 
 class CommentSerialiser(serializers.ModelSerializer):
@@ -53,3 +53,24 @@ class CommentSerialiser(serializers.ModelSerializer):
             validated_data['user'] = user
             
         return super().create(validated_data)
+    
+class ReplySerialiser(serializers.ModelSerializer):
+    """Serialiser for Reply model.
+    
+    Handles the foreign key relationships to Comment and User models.
+    Shows user email in responses rather than user ID.
+    """
+    # Read-only field to show user email in responses
+    reply_user_email = serializers.CharField(source='reply_user_id.user_email', read_only=True)
+    
+    class Meta:
+        model = Reply
+        fields = [
+            'reply_id',
+            'comment_id',
+            'reply_user_id',
+            'reply_user_email',
+            'reply_text',
+            'reply_datetime'
+        ]
+        read_only_fields = ['reply_id', 'reply_datetime', 'reply_user_email']

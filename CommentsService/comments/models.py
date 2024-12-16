@@ -9,7 +9,7 @@ from django.utils import timezone
 class User(models.Model):
     """User model from ERD.
 
-    Note the local user email is for the local user record, linking to external auth API via email.
+    Note the local user email field is for the local user record, linking to external auth API via email.
     The external API handles actual authentication.
     """
     user_id = models.AutoField(primary_key=True)
@@ -20,6 +20,8 @@ class User(models.Model):
     
     def __str__(self):
         return f"{self.user_email} ({'Admin' if self.is_admin else 'User'})"
+    
+# ---
 
 
 class Comment(models.Model):
@@ -55,3 +57,20 @@ class Comment(models.Model):
     
     def __str__(self):
         return f"Comment {self.comment_id} by {self.user.user_email} on trail {self.trail_id}"
+    
+# ---
+    
+class Reply(models.Model):
+    reply_id = models.AutoField(primary_key=True, db_column='ReplyID')
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, db_column='CommentID')
+    reply_user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='ReplyUserID')
+    reply_text = models.TextField(db_column='ReplyText')
+    reply_datetime = models.DateTimeField(default=timezone.now, db_column='ReplyDateTime')
+
+    class Meta:
+        db_table = 'Reply'
+        ordering = ['-reply_datetime']
+
+    def __str__(self):
+        return f"Reply {self.reply_id} to Comment {self.comment_id.comment_id} by {self.reply_user_id.user_email}"
+
