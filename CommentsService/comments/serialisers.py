@@ -1,6 +1,23 @@
 from rest_framework import serializers
 from .models import Comment, User, Reply
 
+'''
+The Meta classes configure how this serialiser works with the Comment model.
+
+It defines:
+- the model the serialiser is for (Comment)
+- the fields to include in the serialised output/input
+- the fields are read-only (can't be modified via the API)
+
+The fields list includes three types of fields:
+1. model fields that map directly to database columns (comment_id, trail_id, etc)
+2. computed fields that don't exist in the model but are calculated (user_email)
+3. input-only fields used during creation but not stored (email)
+
+This therefore allows the API to accept an email address when creating comments,
+whilst storing and referencing users by their foreign key relationship.
+'''
+
 
 class CommentSerialiser(serializers.ModelSerializer):
     """Serialiser for Comment model matching updated ERD structure.
@@ -19,9 +36,9 @@ class CommentSerialiser(serializers.ModelSerializer):
         fields = [
             'comment_id', 
             'trail_id', 
-            'user',  # Foreign key field
-            'user_email',  # Display field
-            'email',  # Input field
+            'user',  # Foreign key field (the actual FK to User model (read-only))
+            'user_email',  # Display field (computed from user.user_email (read-only))
+            'email',  # Input field (write-only field for creating comments)
             'comment_text', 
             'datetime_posted', 
             'is_edited',
@@ -30,14 +47,14 @@ class CommentSerialiser(serializers.ModelSerializer):
             'archived_by'
         ]
         read_only_fields = [
-            'comment_id', 
-            'user',  # Set automatically from email
-            'user_email',
-            'datetime_posted', 
-            'is_edited',
-            'last_edit_datetime',
-            'is_archived',
-            'archived_by'
+            'comment_id',  # Auto-generated primary key
+            'user',  # Set automatically from email lookup
+            'user_email',  # Computed from user relationship
+            'datetime_posted',  # Auto-set on creation
+            'is_edited',  # Managed by model's save() method
+            'last_edit_datetime',  # Updated when edited
+            'is_archived',  # Only changeable via admin actions
+            'archived_by'  # Set when archived
         ]
     
     def create(self, validated_data):
