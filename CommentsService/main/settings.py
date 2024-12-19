@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'comments'
+    'rest_framework', # Django REST Framework
+    'comments', # comments/ Django app
+    'drf_yasg' # Swagger documentation
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,9 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates') # Directory for custom templates such as the Swagger UI
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

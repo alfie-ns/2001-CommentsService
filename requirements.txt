@@ -1,8 +1,15 @@
 asgiref==3.9.1
 Django==5.0.14
 djangorestframework==3.16.0
+drf-yasg==1.21.10
+gpg==1.10.0
+inflection==0.5.1
 mssql-django==1.5
+packaging==25.0
 pyodbc==5.2.0
 python-dotenv==1.1.1
 pytz==2025.2
+PyYAML==6.0.2
 sqlparse==0.5.3
+uritemplate==4.2.0
+wheel==0.45.1
