@@ -13,6 +13,7 @@
 - [X] Set Exercise 5- Create view combining 2+ tables
 - [X] Set Exercise 6- Write CRUD stored procedures
 - [X] Set Exercise 7- Create trigger for trail logging
+- [ ] Polish at the end
 
 ## CommentsService Report
 
@@ -36,7 +37,6 @@
   - [ ] LSEP
   - [ ] Implementation
   - [ ] Evaluation
-- [X] make public just in case
 - [ ] If got nothing else to do, focus on revising work based on prior feedback (set exercises Martin's feedback)
 - [ ] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless **interactive** testing
 
@@ -48,4 +48,4 @@
   > Haoyi
   >
 - [ ] Make README.md & Talk about pushing .env to codebase and why you shouldn't do this
-- [ ] add Haoyi to git
+- [ ] **MAKE PUBLIC** and add Haoyi to the repo

@@ -23,7 +23,6 @@ class User(models.Model):
     
 # ---
 
-
 class Comment(models.Model):
     """`Comment` model with all fields from ERD but using Django naming conventions."""
 
