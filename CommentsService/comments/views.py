@@ -17,7 +17,7 @@ TODO:
     - [X] POST Request to add a new comment to a specific trail's comment section
     - [X] GET Request to get all comments for a specific trail
     - [X] GET Request to get comments for a specific trail
-    - [ ] GET Request to get a specific comment by its ID
+    - [X] GET Request to get a specific comment by its ID
     - [ ] PUT Request to update a specific comment ONLY by the user who created it
     - [ ] DELETE? Request to archive a specific comment ONLY by the admin
     - [X] POST Request to reply to a comment
@@ -34,6 +34,7 @@ class CommentsAPIView(generics.ListCreateAPIView):
     GET: Retrieve all comments for a specific trail
         - filter comments by trail_id from query parameters
         - returns list of comments ordered by newest first
+        - if trail_id not provided, returns all comments; otherwise filter by trail_id, user_id, or comment_id
         
     POST: Create a new comment
         1. serialise incoming request data
@@ -43,11 +44,12 @@ class CommentsAPIView(generics.ListCreateAPIView):
 
     """
     queryset = Comment.objects.all()
-    serializer_class = CommentSerialiser # think `serializer_class` needs the z because it's the attribute name Django looks for
+    serializer_class = CommentSerialiser # `serializer_class` needs the z because it's the attribute name Django looks for
     
     def get_queryset(self):
         """- [X] Override to filter comments by trail_id if provided in query params.
-           - [ ] Override to filter comments by user_id
+           - [X] Override to filter comments by user_id
+           - [X] Override to filter comments by comment_id
         
         This shows Django's ORM filtering capabilities:
         - Checks for 'trail_id' in request query parameters
@@ -58,9 +60,15 @@ class CommentsAPIView(generics.ListCreateAPIView):
         """
         queryset = super().get_queryset()
         trail_id = self.request.query_params.get('trail_id', None)
+        user_id = self.request.query_params.get('user_id', None)
+        comment_id = self.request.query_params.get('comment_id', None)
         
         if trail_id is not None:
             queryset = queryset.filter(trail_id=trail_id)
+        if user_id is not None:
+            queryset = queryset.filter(user_id=user_id)
+        if comment_id is not None:
+            queryset = queryset.filter(comment_id=comment_id)
             
         return queryset
 
