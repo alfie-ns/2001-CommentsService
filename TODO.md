@@ -6,13 +6,13 @@
 
 ## Set Exercises
 
-- [ ] Set Exercise 1- Normalise trail details to 3NF
-- [ ] Set Exercise 2- Create final ERD for CommentsService
-- [ ] Set Exercise 3- Complete field definition grids
-- [ ] Set Exercise 4- Create 3 tables in SQL (CW1 schema)
-- [ ] Set Exercise 5- Create view combining 2+ tables
-- [ ] Set Exercise 6- Write CRUD stored procedures
-- [ ] Set Exercise 7- Create trigger for trail logging
+- [X] Set Exercise 1- Normalise trail details to 3NF
+- [X] Set Exercise 2- Create final ERD for CommentsService
+- [X] Set Exercise 3- Complete field definition grids
+- [X] Set Exercise 4- Create 3 tables in SQL (CW1 schema)
+- [X] Set Exercise 5- Create view combining 2+ tables
+- [X] Set Exercise 6- Write CRUD stored procedures
+- [X] Set Exercise 7- Create trigger for trail logging
 
 ## CommentsService Report
 
