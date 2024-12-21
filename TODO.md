@@ -27,8 +27,7 @@
 - [ ] Create UML diagrams
 - [ ] Test and document results
 - [ ] Ensure RESTful API principles are followed
-- [ ] Create swagger documentation again
-- [ ] Make template showing the CommentsService working
+- [X] Create swagger documentation again
 - [ ] Write **all** the actual report sections this time:
 
   - [ ] Introduction

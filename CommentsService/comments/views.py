@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.utils import timezone
 from .models import Comment, Reply, User
 from .serialisers import CommentSerialiser, ReplySerialiser
 
@@ -18,7 +19,7 @@ TODO:
     - [X] GET Request to get all comments for a specific trail
     - [X] GET Request to get comments for a specific trail
     - [X] GET Request to get a specific comment by its ID
-    - [ ] PUT Request to update a specific comment ONLY by the user who created it
+    - [X] PUT Request to update a specific comment ONLY by the user who created it (as well as replies to comments)
     - [ ] DELETE? Request to archive a specific comment ONLY by the admin
     - [X] POST Request to reply to a comment
 
@@ -83,6 +84,77 @@ class CommentsAPIView(generics.ListCreateAPIView):
         headers = self.get_success_headers(serialiser.data)
         return Response(serialiser.data, status=status.HTTP_201_CREATED, headers=headers)
     
+    def put(self, request, *args, **kwargs):
+        """Update a specific comment only by the user who created it.
+        
+        Expects comment_id in query params or request data.
+        Only allows updating the comment_text field.
+        """
+        # Get comment_id from query params or request data
+        comment_id = request.query_params.get('comment_id') or request.data.get('comment_id')
+        
+        if not comment_id:
+            return Response(
+                {"error": "comment_id is required"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Get the comment
+        try:
+            comment = Comment.objects.get(comment_id=comment_id)
+        except Comment.DoesNotExist:
+            return Response(
+                {"error": "Comment not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Get user from email header
+        email = request.headers.get('X-User-Email')
+        if not email:
+            return Response(
+                {"error": "Authentication required"}, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
+        # Check if user exists
+        try:
+            user = User.objects.get(user_email=email)
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Check if user owns the comment
+        if comment.user != user:
+            return Response(
+                {"error": "You can only edit your own comments"}, 
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        # Check if comment is archived
+        if comment.is_archived:
+            return Response(
+                {"error": "Cannot edit archived comments"}, 
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        # Update the comment text
+        new_text = request.data.get('comment_text')
+        if not new_text:
+            return Response(
+                {"error": "comment_text is required"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Update and save (the model's save method will handle is_edited and last_edit_datetime)
+        comment.comment_text = new_text
+        comment.save()
+        
+        # Return updated comment
+        serialiser = CommentSerialiser(comment)
+        return Response(serialiser.data, status=status.HTTP_200_OK)
+    
 class CommentRepliesView(APIView):
     """Handle replies for a specific comment."""
     
@@ -133,3 +205,73 @@ class CommentRepliesView(APIView):
             serialiser.save()
             return Response(serialiser.data, status=status.HTTP_201_CREATED)
         return Response(serialiser.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, comment_id):
+        """Update a specific reply only by the user who created it.
+        
+        Same logic as updating a comment, but for replies.
+        """
+        # Get reply_id from query params or request data
+        reply_id = request.query_params.get('reply_id') or request.data.get('reply_id')
+        
+        if not reply_id:
+            return Response(
+                {"error": "reply_id is required"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Get the reply
+        try:
+            reply = Reply.objects.get(reply_id=reply_id)
+        except Reply.DoesNotExist:
+            return Response(
+                {"error": "Reply not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Verify the reply belongs to this comment
+        if reply.comment_id.comment_id != comment_id:
+            return Response(
+                {"error": "Reply does not belong to this comment"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Get user from email header
+        email = request.headers.get('X-User-Email')
+        if not email:
+            return Response(
+                {"error": "Authentication required"}, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
+        # Check if user exists
+        try:
+            user = User.objects.get(user_email=email)
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Check if user owns the reply
+        if reply.reply_user_id != user:
+            return Response(
+                {"error": "You can only edit your own replies"}, 
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        # Update the reply text
+        new_text = request.data.get('reply_text')
+        if not new_text:
+            return Response(
+                {"error": "reply_text is required"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Update and save
+        reply.reply_text = new_text
+        reply.save()
+        
+        # Return updated reply
+        serialiser = ReplySerialiser(reply)
+        return Response(serialiser.data, status=status.HTTP_200_OK)
