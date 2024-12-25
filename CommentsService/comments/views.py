@@ -21,7 +21,7 @@ TODO:
     - [X] GET Request to get comments for a specific trail
     - [X] GET Request to get a specific comment by its ID
     - [X] PUT Request to update a specific comment ONLY by the user who created it (as well as replies to comments)
-    - [ ] DELETE? Request to archive a specific comment ONLY by the admin
+    - [X] DELETE? Request to archive a specific comment ONLY by the admin
     - [X] POST Request to reply to a comment
 
 '''
@@ -153,6 +153,74 @@ class CommentsAPIView(generics.ListCreateAPIView):
         # Return updated comment
         serialiser = CommentSerialiser(comment)
         return Response(serialiser.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, *args, **kwargs):
+        """Archive a specific comment - only admins can perform this action.
+        
+        Expects comment_id in query params or request data.
+        Sets is_archived to True and records who archived it.
+        """
+        # Get comment_id from query params or request data
+        comment_id = request.query_params.get('comment_id') or request.data.get('comment_id')
+        
+        if not comment_id:
+            return Response(
+                {"error": "comment_id is required"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Get the comment
+        try:
+            comment = Comment.objects.get(comment_id=comment_id)
+        except Comment.DoesNotExist:
+            return Response(
+                {"error": "Comment not found"}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        # Get authenticated user
+        email, is_admin = get_authenticated_user(request)
+        if not email:
+            return Response(
+                {"error": "Authentication required"}, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
+        # Check if user is admin
+        if not is_admin:
+            return Response(
+                {"error": "Only admins can archive comments"}, 
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        # Get or create admin user in local database
+        admin_user, _ = User.objects.get_or_create(
+            user_email=email,
+            defaults={'is_admin': True}
+        )
+        
+        # Check if comment is already archived
+        if comment.is_archived:
+            return Response(
+                {"error": "Comment is already archived"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Archive the comment
+        comment.is_archived = True
+        comment.archived_by = admin_user
+        comment.save()
+        
+        # Return success message with archived comment details
+        return Response(
+            {
+                "message": "Comment archived successfully",
+                "comment_id": comment.comment_id,
+                "archived_by": admin_user.user_email,
+                "archived_at": timezone.now()
+            },
+            status=status.HTTP_200_OK
+        )
     
 class CommentRepliesView(APIView):
     """Handle replies for a specific comment."""

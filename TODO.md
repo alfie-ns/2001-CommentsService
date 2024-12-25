@@ -21,12 +21,12 @@
 - [X] Initialise git repository
 - [X] Use Django API for CommentsService
 - [X] Create API requests to make it work, remember to serialise API data
-- [ ] Repeat SQL implementation from CW1 -> CW2
+- [X] Repeat SQL implementation from CW1 -> CW2
 - [ ] Make a template for hands-on testing
 - [X] Implement authentication and authorisation with the API once it's online
 - [ ] Create UML diagrams
 - [ ] Test and document results
-- [ ] Ensure RESTful API principles are followed
+- [X] Ensure RESTful API principles are followed
 - [X] Create swagger documentation again
 - [ ] Create all test/ scripts required for Haoyi to easily test
 - [ ] Write **all** the actual report sections this time:
