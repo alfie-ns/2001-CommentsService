@@ -20,20 +20,21 @@
 - [ ] Ensure to use the set exercises design-template for the report's git repo
 - [X] Initialise git repository
 - [X] Use Django API for CommentsService
-- [ ] Create API requests to make it work, remember to serialise API data
+- [X] Create API requests to make it work, remember to serialise API data
 - [ ] Repeat SQL implementation from CW1 -> CW2
 - [ ] Make a template for hands-on testing
-- [ ] Implement authentication and authorisation with the API once it's online
+- [X] Implement authentication and authorisation with the API once it's online
 - [ ] Create UML diagrams
 - [ ] Test and document results
 - [ ] Ensure RESTful API principles are followed
 - [X] Create swagger documentation again
+- [ ] Create all test/ scripts required for Haoyi to easily test
 - [ ] Write **all** the actual report sections this time:
 
   - [ ] Introduction
   - [ ] Background
   - [ ] Design
-  - [ ] LSEP
+  - [X] LSEP
   - [ ] Implementation
   - [ ] Evaluation
 - [ ] If got nothing else to do, focus on revising work based on prior feedback (set exercises Martin's feedback)
@@ -46,5 +47,5 @@
   > Best,
   > Haoyi
   >
-- [ ] Make README.md & Talk about pushing .env to codebase and why you shouldn't do this
+- [ ] **Make README.md & Talk about pushing .env to codebase and why you shouldn't do this**
 - [ ] **MAKE PUBLIC** and add Haoyi to the repo

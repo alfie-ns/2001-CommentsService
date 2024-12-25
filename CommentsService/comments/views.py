@@ -5,13 +5,14 @@ from rest_framework.views import APIView
 from django.utils import timezone
 from .models import Comment, Reply, User
 from .serialisers import CommentSerialiser, ReplySerialiser
+from .auth import get_authenticated_user, authenticate_user
 
 
 # Create your views here.
 
 '''
 TODO:
-- [ ] Make models then views, then necessary serialisers, then urls:
+- [X] Make models then views, then necessary serialisers, then urls:
     - [X] Define comment structure in models.py
     - [X] Define user structure in models.py
     - [X] Define replies structure in models.py
@@ -38,7 +39,7 @@ class CommentsAPIView(generics.ListCreateAPIView):
         - if trail_id not provided, returns all comments; otherwise filter by trail_id, user_id, or comment_id
         
     POST: Create a new comment
-        1. serialise incoming request data
+        1. serialise incoming data
         2. validate the data; raise exception if invalid (triggers a 400 response)
         3. if valid, save the new comment object to the database
         4. return a JSON response with the created comment and HTTP 201 status
@@ -108,22 +109,20 @@ class CommentsAPIView(generics.ListCreateAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         
-        # Get user from email header
-        email = request.headers.get('X-User-Email')
+        # Get authenticated user
+        email, is_admin = get_authenticated_user(request)
         if not email:
             return Response(
                 {"error": "Authentication required"}, 
                 status=status.HTTP_401_UNAUTHORIZED
             )
         
-        # Check if user exists
-        try:
-            user = User.objects.get(user_email=email)
-        except User.DoesNotExist:
-            return Response(
-                {"error": "User not found"}, 
-                status=status.HTTP_404_NOT_FOUND
-            )
+        # Get or create user in local database
+        # It only reaches here if authentication was successful
+        user, _ = User.objects.get_or_create(
+            user_email=email,
+            defaults={'is_admin': is_admin}
+        )
         
         # Check if user owns the comment
         if comment.user != user:
@@ -236,22 +235,20 @@ class CommentRepliesView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # Get user from email header
-        email = request.headers.get('X-User-Email')
+        # Get authenticated user
+        email, is_admin = get_authenticated_user(request)
         if not email:
             return Response(
                 {"error": "Authentication required"}, 
                 status=status.HTTP_401_UNAUTHORIZED
             )
         
-        # Check if user exists
-        try:
-            user = User.objects.get(user_email=email)
-        except User.DoesNotExist:
-            return Response(
-                {"error": "User not found"}, 
-                status=status.HTTP_404_NOT_FOUND
-            )
+        # Get or create user in local database
+        # It only reaches here if authentication was successful
+        user, _ = User.objects.get_or_create(
+            user_email=email,
+            defaults={'is_admin': is_admin}
+        )
         
         # Check if user owns the reply
         if reply.reply_user_id != user:
