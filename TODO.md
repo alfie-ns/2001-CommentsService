@@ -17,12 +17,12 @@
 
 ## CommentsService Report
 
-- [ ] Ensure to use the set exercises design-template for the report's git repo
+- [ ] Polish readme; image of ERD in readme
+- [X] Check the set exercises design-template for the report's git repo
 - [X] Initialise git repository
 - [X] Use Django API for CommentsService
 - [X] Create API requests to make it work, remember to serialise API data
 - [X] Repeat SQL implementation from CW1 -> CW2
-- [ ] Make a template for hands-on testing
 - [X] Implement authentication and authorisation with the API once it's online
 - [ ] Create UML diagrams
 - [ ] Test and document results
@@ -31,11 +31,11 @@
 - [ ] Create all test/ scripts required for Haoyi to easily test
 - [ ] Write **all** the actual report sections this time:
 
-  - [ ] Introduction
+  - [X] Introduction
   - [ ] Background
-  - [ ] Design
+  - [X] Design
   - [X] LSEP
-  - [ ] Implementation
+  - [X] Implementation
   - [ ] Evaluation
 - [ ] If got nothing else to do, focus on revising work based on prior feedback (set exercises Martin's feedback)
 - [ ] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless **interactive** testing
