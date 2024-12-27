@@ -66,10 +66,8 @@ def authenticate_user(email, password):
 
 def get_authenticated_user(request):
     """
-    Extract authenticated user from request.
-    Returns user email and whether they're admin.
-    
-    For the coursework, we're using Basic Auth with the external API.
+    1. Extract authenticated user from request.
+    2. Return user email and whether they're admin
     """
     # Check for Authorization header
     auth_header = request.headers.get('Authorization', '')

@@ -57,10 +57,17 @@ class CommentsAPIView(generics.ListCreateAPIView):
         - Checks for 'trail_id' in request query parameters
         - If present, filters the queryset to only show comments for that trail
         - If not present, returns all comments
+        - Excludes archived comments by default unless specifically requested
 
         Django's DRF calls this method automatically if fetching data
         """
         queryset = super().get_queryset()
+        
+        # Exclude archived comments by default
+        show_archived = self.request.query_params.get('show_archived', 'false').lower() == 'true'
+        if not show_archived:
+            queryset = queryset.filter(is_archived=False)
+        
         trail_id = self.request.query_params.get('trail_id', None)
         user_id = self.request.query_params.get('user_id', None)
         comment_id = self.request.query_params.get('comment_id', None)
@@ -79,7 +86,25 @@ class CommentsAPIView(generics.ListCreateAPIView):
            
            Django's DRF also calls this automatically so this and get_queryset doesn't need @action
         """
-        serialiser = self.get_serializer(data=request.data)
+        # Get authenticated user
+        email, is_admin = get_authenticated_user(request)
+        if not email:
+            return Response(
+                {"error": "Authentication required"}, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
+        # Get or create user in local database
+        user, _ = User.objects.get_or_create(
+            user_email=email,
+            defaults={'is_admin': is_admin}
+        )
+        
+        # Add user to the request data
+        data = request.data.copy()
+        data['email'] = email
+        
+        serialiser = self.get_serializer(data=data)
         serialiser.is_valid(raise_exception=True)
         self.perform_create(serialiser)
         headers = self.get_success_headers(serialiser.data)
@@ -249,17 +274,19 @@ class CommentRepliesView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         
-        email = request.data.get('email')
+        # Get authenticated user
+        email, is_admin = get_authenticated_user(request)
         if not email:
             return Response(
-                {"error": "Email is required"}, 
-                status=status.HTTP_400_BAD_REQUEST
+                {"error": "Authentication required"}, 
+                status=status.HTTP_401_UNAUTHORIZED
             )
         
-        user = User.objects.get_or_create(
+        # Get or create user in local database
+        user, _ = User.objects.get_or_create(
             user_email=email,
-            defaults={'is_admin': False}
-        )[0]  # only take the user object
+            defaults={'is_admin': is_admin}
+        )
         
         reply_data = {
             'comment_id': comment.comment_id,
