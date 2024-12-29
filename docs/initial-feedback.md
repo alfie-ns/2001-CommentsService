@@ -28,14 +28,14 @@
 >   Relation names added here
 >   LocationID needed to be added at UNF
 >   7/20
-> - [ ] Set exercise 2 feedback
+> - [X] Set exercise 2 feedback
 >   Set Exercise 2: Entity Relationship Diagram
 >   Partial ERD matches normalisation
 >   Users added
 >   No indication of optionality between entities
 >   No relationship link phrases
 >   10/15
-> - [ ] Set exercise 3 feedback
+> - [X] Set exercise 3 feedback
 >   Set Exercise 3: Database design
 >   Final ERD overlaps with Field definition grid obscuring some of it
 >   No Synonyms, Possible data values or validation rules
@@ -43,7 +43,7 @@
 >   You state in table creation that Difficulty can be ‘Easy’, ‘moderate’ or ‘hard’ – so why
 >   is this not stated in the design?
 >   8/15
-> - [ ] Set exercise 4 feedback
+> - [X] Set exercise 4 feedback
 >   Set Exercise 4: SQL
 >   ‘the screenshots are when I did this on localhost’ – this was expected to be carried
 >   out on dist-6-505.uopnet.plymouth.ac.uk!
@@ -52,12 +52,12 @@
 >   Primary keys are best added as constraints
 >   No checks e.g. against ‘Easy’, ‘moderate’ or ‘hard’ on Difficulty
 >   5/15
-> - [ ] Set exercise 5 feedback
+> - [X] Set exercise 5 feedback
 >   Set Exercise 5: View
 >   screenshots from localhost
 >   Username is not on the webpage
 >   5/10
-> - [ ] Set exercise 6 feedback
+> - [X] Set exercise 6 feedback
 >   Set Exercise 6: Stored procedures
 >   Read is best done not as * - could then select individual fields to display
 >   Update & Delete Trail procedures – no check on existence of TrailID to prevent error.
@@ -65,7 +65,7 @@
 >   No test execution or screenshots
 >   As no link table, makes it easier
 >   6/15
-> - [ ] Set exercise 7 feedback
+> - [X] Set exercise 7 feedback
 >   Set Exercise 7: Trigger
 >   ‘forgot screenshot’ ‘however as we can see, the trigger query successfully ran’ – this
 >   only showed it loaded. You needed to add a new trail to set the Trigger off
@@ -78,9 +78,9 @@
 
 > The introduction and background are well-written, providing a clear overview of the structure of the report and the microservice. The background section outlines the microservice's purpose, key functionalities, and technologies used.
 >
-> - [ ] The design section seems unfinished.
-> - [ ] The LSEP section is not attempted.
-> - [ ] The implementation is well-written with a good level of technical details. Code snippets could be included and discussed here.
-> - [ ] The evaluation section is not attempted.
+> - [X] The design section seems unfinished.
+> - [X] The LSEP section is not attempted.
+> - [X] The implementation is well-written with a good level of technical details. Code snippets could be included and discussed here.
+> - [X] The evaluation section is not attempted.
 >
 > Overall, the report feels underdeveloped and lacks technical details to get a higher mark

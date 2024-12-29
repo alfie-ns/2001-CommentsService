@@ -1,6 +1,5 @@
 # COMP2001: CommentsService
 
-[Address Initial Feedback](/docs/initial-feedback.md)
 ![Entity Relationship Diagram](docs/images/ERD.png)
 
 CommentsService is a project I made for **COMP2001** at the University of Plymouth. It is a Django RESTful API that allows users to create, read and update comments on trails. It also includes authentication and authorisation features.
