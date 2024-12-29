@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "------------------------------------------"
+echo "---------------------------------------------"
 echo "Testing Comment Archive/Delete Functionality"
-echo "------------------------------------------"
+echo "---------------------------------------------"
 echo ""
 
 # Dynamically generate authentication headers

@@ -143,10 +143,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # REST Framework settings
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],  # Disable default authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [],  # Disable default authentication to work with Authenticator API
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # Allow any by default
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', # Initialise pagination
+        'rest_framework.permissions.AllowAny'  # Allow any by default
+    ], 
+    # Use PageNumberPagination for page-by-page pagination
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', 
     'PAGE_SIZE': 10
 }

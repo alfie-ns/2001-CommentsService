@@ -17,7 +17,7 @@
 
 ## CommentsService Report
 
-- [ ] Polish readme; image of ERD in readme
+- [X] Polish readme; image of ERD in readme
 - [X] Check the set exercises design-template for the report's git repo
 - [X] Initialise git repository
 - [X] Use Django API for CommentsService
@@ -28,6 +28,7 @@
 - [ ] Test and document results
 - [X] Ensure RESTful API principles are followed
 - [X] Create swagger documentation again
+- [ ] Test some endpoints in Postman
 - [ ] Create all test/ scripts required for Haoyi to easily test
 - [ ] Write **all** the actual report sections this time:
 
@@ -37,6 +38,7 @@
   - [X] LSEP
   - [X] Implementation
   - [ ] Evaluation
+  - [ ] **Screenshot pagintation on Django admin**
 - [ ] If got nothing else to do, focus on revising work based on prior feedback (set exercises Martin's feedback)
 - [ ] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless **interactive** testing
 

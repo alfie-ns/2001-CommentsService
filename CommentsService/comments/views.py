@@ -252,9 +252,8 @@ class CommentRepliesView(APIView):
     
     def get(self, request, comment_id):
         """Get all replies for a specific comment."""
-        try:
-            comment = Comment.objects.get(comment_id=comment_id)
-        except Comment.DoesNotExist:
+        # Check if comment exists
+        if not Comment.objects.filter(comment_id=comment_id).exists():
             return Response(
                 {"error": "Comment not found"}, 
                 status=status.HTTP_404_NOT_FOUND

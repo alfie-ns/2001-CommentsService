@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "------------------------------------------"
+echo "---------------------------------"
 echo "Testing Pagination Functionality"
-echo "------------------------------------------"
+echo "---------------------------------"
 echo ""
 
 # As well as for the other test scripts, these are dynamic authentication headers for different users;

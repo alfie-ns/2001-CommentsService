@@ -1,50 +1,52 @@
 # COMP2001: CommentsService
 
 [Address Initial Feedback](/docs/initial-feedback.md)
+![Entity Relationship Diagram](docs/images/ERD.png)
 
-CommentsService is a project I made for **COMP2001** at the University of Plymouth. It is a Django RESTful API that allows users to create, read and update comments on trails. It also includes authentication and authorisation features, as well as a web interface for testing the API.
+CommentsService is a project I made for **COMP2001** at the University of Plymouth. It is a Django RESTful API that allows users to create, read and update comments on trails. It also includes authentication and authorisation features.
 
-The Django project is NOT in the root so one needs to navigate to the `CommentsService` folder to run the Django commands. All testing is seamlessly done regardless; if you don't want to use the bash scripts I made please just run the commands in them manually.
+The Django project is NOT in the root, so you need to navigate to the `CommentsService` folder to run the Django commands directly; however, all testing can seamlessly be done via running the scripts in the test/ directory; if you don't want to use the bash scripts you can instead run the commands in them manually (**Inside 2001-CommentsService/CommentsService**)
 
-### Project Structure:
+### Project Structure for the Django Project (CommentsService/)
 
 ```
-2001-CommentsService/       <-- Repository root
-├── requirements.txt        <-- dependencies here in the root
-└── CommentsService/        <-- Django Project root (navigate here)
-    ├── manage.py           <-- Django management script
-    ├── main/               <-- Main folder with settings and urls
-    ├── comments/.          <-- Comments app folder with comment-releated code
-    ├── .env                <-- Environment variables for the project with database credentials
-    ├── .gitignore          <-- Contains files and folders to ignore in git
-    └── venv/               <-- Virtual environment folder (not committed to git, git ignored)
-├── docs/                  <-- Documentation folder
-│   ├── initial-feedback.md <-- Initial feedback from the COMP2001 module
-│   └── COMP2001 Coursework.pdf
-├── scripts/                <-- Bash scripts for running the project
-│   ├── run.sh              <-- Bash script to run the Django server
-│   └── example-clone.sh    <-- Example script to show how you'd use the .env file
-└── tests/                 <-- Tests folder
-    ├── auth.py            <-- Tests for authentication API implementation
-    ├── TO BE CONTINUED...
-└── README.md               <-- This file is the main read me file for the project
+CommentsService/
+├── comments        <--- Comments app folder with comment-related code
+│   ├── migrations      <--- Migrations folder for the comments app which handles Django's database schema changes (auto generated)
+│   │   ├── __init__.py         <--- Indicates this is a package (auto-generated empty file)
+│   │   └── 0001_initial.py     <--- Database migrations for the initial and final schema of the comments app
+│   ├── __init__.py     <--- Indicates this is a package (auto-generated empty file)
+│   ├── apps.py         <--- Configuration for the comments app (auto generated)
+│   ├── auth.py         <--- Authentication API implementation for the comments app
+│   ├── models.py       <--- Models for the comments app (database schema)
+│   ├── serialisers.py  <--- Serialisers for the comments app (converts models to JSON and vice versa)
+│   ├── urls.py         <--- Where you define the URLs for the comments app
+│   └── views.py        <--- Views for the comments app, i.e. the logical code that handles the API requests and responses
+├── main        <--- Main folder with settings and urls (contains project-configuration code)
+│   ├── __init__.py     <--- Auto-generated empty file previously clarified
+│   ├── asgi.py         <--- ASGI configuration for the project (for asynchronous support)
+│   ├── settings.py     <--- Project settings (contains MS-SQL database configuration, installed apps (comments/), middleware (not manually configured this time), pagination (10-requests-in-a-page), etc.)
+│   ├── urls.py         <--- Project URLs (creates the actual URLs using the Django app's urls.py files)
+│   └── wsgi.py         <--- WSGI configuration for the project (for synchronous support, on by default)
+├── .env            <--- Environment variables for the project with the MS-SQL database credentials (should be git ignored in production but is not for markers' convenience)
+└── manage.py.      <--- Central script that Django uses to manage the project (running the server, making migrations, creating apps, etc.)
 ```
 
 In Django, an `app` refers to a folder (i.e. feature) inside the project
 
-### Setup
+### User Setup
 
 1. `git clone https://github.com/alfie-ns/2001-CommentsService`
-2a. (bash) `cd 2001-CommentsService && ./scripts/run.sh`
-2b. (manual) Run the following commands:
+   2a. (bash) `cd 2001-CommentsService && ./scripts/run.sh`
+   2b. (manual) Run the following commands:
    - `cd 2001-CommentsService`
    - `python3 -m venv venv && source venv/bin/activate`
    - `pip3 install -r requirements.txt`
    - `cd CommentsService`
    - `python3 manage.py runserver`
-3. Open your browser and go to ...
+2. Open your browser and go to ...
 
-### My initial Setup
+### My Initial Setup
 
 On the starting commits, I ran the following commands to set up the Django project:
 
@@ -55,5 +57,4 @@ On the starting commits, I ran the following commands to set up the Django proje
 5. run `django-admin startproject CommentsService` to create the Django project
 6. run `cd CommentsService` then `python3 manage.py migrate` to migrate the database
 7. run `pip3 install mssql-django python-dotenv` to install the database driver and dotenv package
-
-`...`
+8. run `python3 manage.py startapp comments` to create the comments app which holds the implementation of the comments microservice
