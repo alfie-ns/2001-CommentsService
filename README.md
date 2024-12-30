@@ -35,19 +35,33 @@ In Django, an `app` refers to a folder (i.e. feature) inside the project
 
 ### User Setup
 
-1. `git clone https://github.com/alfie-ns/2001-CommentsService`
-   2a. (bash) `cd 2001-CommentsService && ./scripts/run.sh`
-   2b. (manual) Run the following commands:
-   - `cd 2001-CommentsService`
-   - `python3 -m venv venv && source venv/bin/activate`
-   - `pip3 install -r requirements.txt`
-   - `cd CommentsService`
-   - `python3 manage.py runserver`
-2. Open your browser and go to ...
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/alfie-ns/2001-CommentsService
+   ```
+
+2. Run the service:
+
+   **Option A: Bash script (automates everything)**
+
+   ```bash
+   cd 2001-CommentsService && ./scripts/run.sh
+   ```
+
+   **Option B: Manual setup**
+
+   ```bash
+   cd 2001-CommentsService
+   python3 -m venv venv && source venv/bin/activate
+   pip3 install -r requirements.txt
+   cd CommentsService
+   python3 manage.py runserver
+   ```
 
 ### My Initial Setup
 
-On the starting commits, I ran the following commands to set up the Django project:
+On the "Starting" commits, I ran the following commands to set up the Django project:
 
 1. run `python3 -m venv venv` to create virtual environment
 2. run `source venv/bin/activate` (or whatever you named the virtual environment) to enter it
