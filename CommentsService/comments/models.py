@@ -7,7 +7,7 @@ from django.utils import timezone
 
 
 class User(models.Model):
-    """User model from ERD.
+    """`User` model from ERD.
 
     Note the local user email field is for the local user record, linking to external auth API via email.
     The external API handles actual authentication.
@@ -16,7 +16,7 @@ class User(models.Model):
     user_email = models.CharField(max_length=254, unique=True)
     is_admin = models.BooleanField(default=False)  # Boolean field for admin status
     class Meta:
-        db_table = 'User'
+        db_table = 'CW2.User'
     
     def __str__(self):
         return f"{self.user_email} ({'Admin' if self.is_admin else 'User'})"
@@ -44,7 +44,7 @@ class Comment(models.Model):
     )
     
     class Meta:
-        db_table = 'Comment'
+        db_table = 'CW2.Comment'
         ordering = ['-datetime_posted']
     
     def save(self, *args, **kwargs):
@@ -60,6 +60,8 @@ class Comment(models.Model):
 # ---
     
 class Reply(models.Model):
+    """`Reply` model representing a reply to a comment."""
+
     reply_id = models.AutoField(primary_key=True, db_column='ReplyID')
     comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, db_column='CommentID')
     reply_user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='ReplyUserID')
@@ -67,7 +69,7 @@ class Reply(models.Model):
     reply_datetime = models.DateTimeField(default=timezone.now, db_column='ReplyDateTime')
 
     class Meta:
-        db_table = 'Reply'
+        db_table = 'CW2.Reply'
         ordering = ['-reply_datetime']
 
     def __str__(self):
