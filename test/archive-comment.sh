@@ -108,7 +108,7 @@ echo "- Created and archived comment ID: $COMMENT_ID"
 echo "- Tests admin-only archive functionality"
 echo "- Tests prevention of re-archiving (archiving a comment that's already archived)"
 echo "- Tests that archived comments can't be edited"
-echo "- Tests that archived comments are still viewable"
+echo "- Tests that archived comments are hidden by default but still can be viewable (retrievable) with the `show_archived=true` flag"
 echo "------------------------------------------" 
 
 cat <<EOF
@@ -116,7 +116,7 @@ The tests verify:
 - Only admins can archive comments
 - Comments can only be archived once
 - Archived comments cannot be edited
-- Archived comments remain viewable
+- Archived comments remain viewable under certain conditions
 - Proper error handling for edge cases
 - Authentication via the given API prior to archiving
 ------------------------------------------

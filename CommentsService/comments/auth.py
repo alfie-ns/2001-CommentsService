@@ -1,5 +1,6 @@
 import requests
 import json
+import base64
 
 # External authentication API URL
 AUTH_API_URL = "https://web.socem.plymouth.ac.uk/COMP2001/auth/api/users"
@@ -17,7 +18,7 @@ def authenticate_user(email, password):
         
         # POST request to authenticate
         
-        # No longer need to escape exclamation marks as the API was fixed the same day I was doing this in fact
+        # Exclamation mark escaping removed after external authentication API fixed
         payload = json.dumps({
             "email": email,
             "password": password
@@ -69,13 +70,12 @@ def get_authenticated_user(request):
     1. Extract authenticated user from request.
     2. Return user email and whether they're admin
     """
-    # Check for Authorization header
+    # Check for 'Authorization' header
     auth_header = request.headers.get('Authorization', '')
     print(f"Auth header received: {auth_header[:20] if auth_header else 'None'}...")  # log first 20 chars
     
     if auth_header and auth_header.startswith('Basic '):
         # Decode Basic auth
-        import base64
         try:
             credentials = base64.b64decode(auth_header[6:]).decode('utf-8')
             email, password = credentials.split(':', 1)

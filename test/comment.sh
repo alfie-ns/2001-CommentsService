@@ -54,7 +54,7 @@ get_user_credentials() {
     esac
     
     # Generate auth header for the selected user
-    AUTH_HEADER="Authorization: Basic $(echo -n "$USER_EMAIL:$USER_PASSWORD" | base64)"
+    AUTH_HEADER="Authorization: Basic $(echo -n "$USER_EMAIL:$USER_PASSWORD" | base64)" # echo -n means to not output a newline character at the end, so base64 will encode just the relevant string as a single line
     echo ""
     echo "Authenticated as: $USER_NAME ($USER_EMAIL)"
     echo ""
@@ -124,7 +124,7 @@ if echo "$RESPONSE" | grep -q '"comment_id"'; then
     
     echo ""
     echo "Database verification:"
-    echo "$VERIFY_RESPONSE" | python3 -m json.tool | grep -A 10 "\"comment_id\": $COMMENT_ID"
+    echo "$VERIFY_RESPONSE" | python3 -m json.tool | grep -A 10 "\"comment_id\": $COMMENT_ID" # `grep -A 10` shows 10 lines after finding comment_id, capturing the full comment object to print
     
     echo ""
     echo "-------------------------------------------"

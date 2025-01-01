@@ -13,7 +13,7 @@
 - [X] Set Exercise 5- Create view combining 2+ tables
 - [X] Set Exercise 6- Write CRUD stored procedures
 - [X] Set Exercise 7- Create trigger for trail logging
-- [ ] Polish at the end
+- [X] polish at the end
 
 ## CommentsService Report
 
@@ -25,22 +25,22 @@
 - [X] Repeat SQL implementation from CW1 -> CW2
 - [X] Implement authentication and authorisation with the API once it's online
 - [ ] Create UML diagrams
-- [ ] Test and document results
+- [X] Test and document results
 - [X] Ensure RESTful API principles are followed
 - [X] Create swagger documentation again
-- [ ] Test some endpoints in Postman
-- [ ] Create all test/ scripts required for Haoyi to easily test
-- [ ] Write **all** the actual report sections this time:
+- [X] Test some endpoints in Postman
+- [X] Create all test/ scripts required for Haoyi to easily test
+- [X] Write **all** the actual report sections this time:
 
   - [X] Introduction
-  - [ ] Background
+  - [X] Background
   - [X] Design
   - [X] LSEP
   - [X] Implementation
-  - [ ] Evaluation
+  - [X] Evaluation
   - [ ] **Screenshot pagintation on Django admin**
-- [ ] If got nothing else to do, focus on revising work based on prior feedback (set exercises Martin's feedback)
-- [ ] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless **interactive** testing
+- [X] improve work based on prior feedback (set exercises Martin's feedback)
+- [X] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless **interactive** testing
 
   > Hi Alfie,
   >
@@ -49,5 +49,5 @@
   > Best,
   > Haoyi
   >
-- [ ] **Make README.md & Talk about pushing .env to codebase and why you shouldn't do this**
+- [X] **Make README.md & Talk about pushing .env to codebase and why you shouldn't do this**
 - [ ] **MAKE PUBLIC** and add Haoyi to the repo
