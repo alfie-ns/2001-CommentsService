@@ -31,7 +31,8 @@ class CommentsAPIView(generics.ListCreateAPIView):
     """Handle comments for trails: supports:
     - GET 
     - POST 
-    - ...
+    - PUT
+    - DELETE (archive)
     
     GET: Retrieve all comments for a specific trail
         - filter comments by trail_id from query parameters
@@ -43,6 +44,16 @@ class CommentsAPIView(generics.ListCreateAPIView):
         2. validate the data; raise exception if invalid (triggers a 400 response)
         3. if valid, save the new comment object to the database
         4. return a JSON response with the created comment and HTTP 201 status
+
+    PUT: Update an existing comment
+        - requires comment_id in query parameters or request data
+        - only allows updating the comment_text field
+        - checks if the user owns the comment before allowing update
+    
+    DELETE: Archive a comment
+        - requires comment_id in query parameters or request data
+        - only allows admins to archive comments
+        - sets is_archived to True and records who archived it
 
     """
     queryset = Comment.objects.all()

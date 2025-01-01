@@ -36,7 +36,7 @@ class CommentSerialiser(serializers.ModelSerializer):
         fields = [
             'comment_id', 
             'trail_id', 
-            'user',  # Foreign key field (the actual FK to User model (read-only))
+            'user_id',  # Foreign key field (the actual FK to User model (read-only))
             'user_email',  # Display field (computed from user.user_email (read-only))
             'email',  # Input field (write-only field for creating comments)
             'comment_text', 

@@ -40,7 +40,6 @@ def authenticate_user(email, password):
             # API returns ["Verified","True"/"False"] format
             result = response.json()
             if isinstance(result, list) and len(result) >= 2:
-                # The API returns ["Verified","True"/"False"] format
                 if result[0] == "Verified":
                     if result[1] == "True":
                         print(f"Authentication successful for {email}")

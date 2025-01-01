@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', # Django REST Framework
     'comments', # comments/ Django app
-    'drf_yasg' # Swagger documentation
+    'drf_yasg', # Swagger documentation
+    'django_extensions', # Django extensions for additional management commands (in this case, generating ERD)
 ]
 
 MIDDLEWARE = [

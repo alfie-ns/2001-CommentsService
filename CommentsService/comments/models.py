@@ -12,9 +12,10 @@ class User(models.Model):
     Note the local user email field is for the local user record, linking to external auth API via email.
     The external API handles actual authentication.
     """
-    user_id = models.AutoField(primary_key=True)
-    user_email = models.CharField(max_length=254, unique=True)
+    user_id = models.AutoField(primary_key=True) # primary key for User (UserID)
+    user_email = models.CharField(max_length=254, unique=True) # email field for holding the user's email (UserEmail)
     is_admin = models.BooleanField(default=False)  # Boolean field for admin status
+    
     class Meta:
         db_table = 'CW2.User'
     
@@ -26,15 +27,15 @@ class User(models.Model):
 class Comment(models.Model):
     """`Comment` model with all fields from ERD but using Django naming conventions."""
 
-    comment_id = models.AutoField(primary_key=True, db_column='CommentID')
-    trail_id = models.IntegerField(db_column='TrailID')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
-    comment_text = models.TextField(db_column='CommentText')
-    datetime_posted = models.DateTimeField(default=timezone.now, db_column='DatetimePosted')
-    is_edited = models.BooleanField(default=False, db_column='IsEdited')
-    last_edit_datetime = models.DateTimeField(null=True, blank=True, db_column='LastEditDateTime')
-    is_archived = models.BooleanField(default=False, db_column='IsArchived')
-    archived_by = models.ForeignKey(
+    comment_id = models.AutoField(primary_key=True, db_column='CommentID') # primary key for Comment (CommentID)
+    trail_id = models.IntegerField(db_column='TrailID') # foreign key to Trail table (TrailID)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID') # foreign key to User table (UserID)
+    comment_text = models.TextField(db_column='CommentText') # text field for holding comments' text (CommentText)
+    datetime_posted = models.DateTimeField(default=timezone.now, db_column='DatetimePosted') # datetime field for holding the date and time when the comment was posted (DatetimePosted)
+    is_edited = models.BooleanField(default=False, db_column='IsEdited') # Boolean field to track if the comment has been edited (IsEdited)
+    last_edit_datetime = models.DateTimeField(null=True, blank=True, db_column='LastEditDateTime') # datetime field for holding the date and time when the comment was last edited (LastEditDateTime)
+    is_archived = models.BooleanField(default=False, db_column='IsArchived') # Boolean field to track if the comment has been archived (IsArchived)
+    archived_by = models.ForeignKey( # this foreign key links to the User who archived the comment
         User, 
         on_delete=models.SET_NULL, 
         null=True, 
@@ -49,7 +50,7 @@ class Comment(models.Model):
     
     def save(self, *args, **kwargs):
         """Track when comment is edited."""
-        if self.pk and not self._state.adding:
+        if self.pk and not self._state.adding: # if the comment is not null and not being created
             self.is_edited = True
             self.last_edit_datetime = timezone.now()
         super().save(*args, **kwargs)
@@ -62,11 +63,11 @@ class Comment(models.Model):
 class Reply(models.Model):
     """`Reply` model representing a reply to a comment."""
 
-    reply_id = models.AutoField(primary_key=True, db_column='ReplyID')
-    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, db_column='CommentID')
-    reply_user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='ReplyUserID')
-    reply_text = models.TextField(db_column='ReplyText')
-    reply_datetime = models.DateTimeField(default=timezone.now, db_column='ReplyDateTime')
+    reply_id = models.AutoField(primary_key=True, db_column='ReplyID') # primary key for Reply (ReplyID)
+    comment_id = models.ForeignKey(Comment, on_delete=models.CASCADE, db_column='CommentID') # foreign key to Comment table (CommentID)
+    reply_user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='ReplyUserID') # foreign key to User table (ReplyUserID)
+    reply_text = models.TextField(db_column='ReplyText') # text field for holding the reply text (ReplyText)
+    reply_datetime = models.DateTimeField(default=timezone.now, db_column='ReplyDateTime') # datetime field for holding the reply date and time (ReplyDateTime)
 
     class Meta:
         db_table = 'CW2.Reply'
