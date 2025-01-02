@@ -24,7 +24,7 @@
 - [X] Create API requests to make it work, remember to serialise API data
 - [X] Repeat SQL implementation from CW1 -> CW2
 - [X] Implement authentication and authorisation with the API once it's online
-- [ ] Create UML diagrams
+- [X] Create UML diagram(s)
 - [X] Test and document results
 - [X] Ensure RESTful API principles are followed
 - [X] Create swagger documentation again
@@ -38,9 +38,9 @@
   - [X] LSEP
   - [X] Implementation
   - [X] Evaluation
-  - [ ] **Screenshot pagintation on Django admin**
+  - [X] **Screenshot pagination on Django admin**
 - [X] improve work based on prior feedback (set exercises Martin's feedback)
-- [X] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless **interactive** testing
+- [X] Haoyi said: (thus I need to make the tests.py? maybe): tests.py won't work because I can't create a test db; insufficent permissons so I'll make scripts for seamless testing (`test/comment.sh` is interactive, the rest are fast, proof-of-working programs)
 
   > Hi Alfie,
   >
@@ -50,4 +50,4 @@
   > Haoyi
   >
 - [X] **Make README.md & Talk about pushing .env to codebase and why you shouldn't do this**
-- [ ] **MAKE PUBLIC** and add Haoyi to the repo
+- [X] **MAKE PUBLIC** and add Haoyi to the repo
